@@ -181,15 +181,15 @@ export class LoginPage implements OnInit {
         return true;
     }
 
-    // sendResetEmail() {
-    //     this.clearErrorMessage();
-    //
-    //     this.fireserv.resetPassword(this.email)
-    //         .then(() => this.resetPassword = true)
-    //         .catch(_error => {
-    //             this.error = _error
-    //         })
-    // }
+    sendResetEmail() {
+        this.clearErrorMessage();
+
+        this.fireserv.resetPassword(this.email)
+            .then(() => this.resetPassword = true)
+            .catch(_error => {
+                this.error = _error
+            })
+    }
 
     logout() {
         this.fireserv.signOut();

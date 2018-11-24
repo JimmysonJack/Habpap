@@ -24,7 +24,7 @@
             </ion-item>
             <ion-button (click)="onLoginEmail()" style="float: right">Log In</ion-button>
 
-            <a *ngIf="!resetPassword && isValidMailFormat(email)">Reset
+            <a *ngIf="!resetPassword && isValidMailFormat(email)" (click)="sendResetEmail()">Reset
                 Password for {{email}}</a>
             <p *ngIf="resetPassword">Check your email to reset password!</p>
 

@@ -4,6 +4,7 @@ import {Observable} from "rxjs/internal/Observable";
 import {map} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {AngularFireAuth} from 'angularfire2/auth';
+import * as fireb from 'firebase';
 
 export interface ProductItem {
     itemName: string;
@@ -48,6 +49,8 @@ export class FireServService {
     private proCol: AngularFirestoreCollection<AppUser>;
     private products: Observable<ProductItem[]>;
     private user: Observable<AppUser[]>;
+
+
 
     constructor(private db: AngularFirestore, private router: Router, private authr: AngularFireAuth,
                 private firestore: AngularFirestore) {
@@ -164,8 +167,11 @@ export class FireServService {
         }
     }
 
-    clik() {
-
+    resetPassword(email: string) {
+        const autht = this.authr.auth;
+        return autht.sendPasswordResetEmail(email)
+            .then(() => console.log("email sent"))
+            .catch((error) => console.log(error))
     }
 }
 
