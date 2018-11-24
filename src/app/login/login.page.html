@@ -1,0 +1,42 @@
+<ion-header *ngIf="isLogin">
+    <ion-toolbar color="medium">
+        <ion-title>login</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding color="medium" *ngIf="isLogin">
+    <div class="login1">
+        <ion-img src="../assets/img/Habpap Free Logo.png"></ion-img>
+    </div>
+
+    <div class="login">
+        <div class="login-page">
+
+
+            <ion-item color="medium">
+                <ion-label position="floating">Email</ion-label>
+                <ion-input type="email" name="email" required [(ngModel)]="email"></ion-input>
+            </ion-item>
+
+            <ion-item color="medium">
+                <ion-label position="floating">Password</ion-label>
+                <ion-input type="password" name="password" required [(ngModel)]="password"></ion-input>
+            </ion-item>
+            <ion-button (click)="onLoginEmail()" style="float: right">Log In</ion-button>
+
+            <a *ngIf="!resetPassword && isValidMailFormat(email)">Reset
+                Password for {{email}}</a>
+            <p *ngIf="resetPassword">Check your email to reset password!</p>
+
+            <p style="color: red" *ngIf="errorMessage.length > 0">
+                {{errorMessage}}</p>
+
+            <p style="color: red" *ngIf="error.message.length > 0">
+                {{error.message}}</p>
+        </div>
+    </div>
+</ion-content>
+
+<div *ngIf="!isLogin">
+    <p>Please wait...</p>
+</div>

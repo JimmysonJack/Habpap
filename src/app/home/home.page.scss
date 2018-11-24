@@ -1,1 +1,31 @@
+.select{
+  z-index: 2;
+  margin-left: 50%;
+}
 
+.footer{
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+  margin-bottom: 50%;
+}
+.conte{
+  display: flex;
+}
+.icon{
+  width: 70%;
+  height: 10%;
+  //border: 1px solid black;
+  position: absolute;
+  z-index: 1;
+  margin-top: 200px;
+ margin-left: 10%;
+
+}
+.content{
+  z-index: 2;
+  position: absolute;
+  width: 93%;
+  padding-right: 2%;
+
+}

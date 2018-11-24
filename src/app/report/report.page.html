@@ -1,0 +1,60 @@
+
+    <ion-header *ngIf="isLogin">
+        <ion-toolbar color="medium">
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+            <ion-item color="medium">
+                <ion-buttons slot="start">
+                <ion-button (click)="onReport()">
+                    <ion-icon name="ios-search"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+
+                <div style="border: 1px solid #2b1e1b; width: 40%; margin-right: 0%; z-index: 2; position: absolute; border-radius: 10px">
+                <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="fireserv.search" slot="start">Start Date</ion-datetime>
+                </div>
+                <div style="border: 1px solid #2b1e1b; width: 40%; margin-left: 60%; z-index: 1; position: absolute; border-radius: 10px">
+                <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="fireserv.seach2" slot="end">End Date</ion-datetime>
+                </div>
+            </ion-item>
+        </ion-toolbar>
+        <ion-item color="medium">
+        <ion-grid style="text-align: center">
+
+            <ion-row justify-content-center align-items-center style="height: 100%">
+                <ion-card><div> Total:<ion-card-title> {{sum|number}}</ion-card-title> <br> Qnt: {{sum1}}</div></ion-card>
+                <ion-card><div>Cash: <ion-card-title> {{cash|number}}</ion-card-title> <br> Qnt: {{cash1}}</div></ion-card>
+                <ion-card><div> M-Pesa: <ion-card-title> {{mpesa|number}}</ion-card-title> <br> Qnt: {{mpesa1}}</div></ion-card>
+                <ion-card><div>  FoodSasa: <ion-card-title>{{foodSasa|number}}</ion-card-title> <br> Qnt: {{foodSasa1}}</div></ion-card>
+            </ion-row>
+
+        </ion-grid>
+    </ion-item>
+    </ion-header>
+
+    <ion-content *ngIf="isLogin" padding color="medium">
+
+        <ion-list *ngFor="let item of product">
+            <ion-item color="medium">
+                <div slot="start" style="margin-right: 5%">
+                 {{item.itemDate}}
+                </div>
+                <div style="z-index: 3; position: absolute; margin-left: 40%; text-align: center">
+              {{item.itemName}}<br>{{item.itemType}}
+                </div>
+                <div style="z-index: 2; position: absolute; margin-left: 90%; text-align: center">
+               {{item.itemQuantity}}
+                </div>
+                <div style="z-index: 1; position: absolute; text-align: center" slot="end">
+                {{item.itemPrice|number}} <br> {{item.paymentMethod}}
+                </div>
+
+            </ion-item>
+
+        </ion-list>
+    </ion-content>
+
+<div *ngIf="!isLogin">
+    <p>Please wait...</p>
+</div>

@@ -1,12 +1,107 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header *ngIf="isLogin">
+  <ion-toolbar color="medium">
+
     <ion-title>
-      Ionic Blank
+      Home
     </ion-title>
+    <ion-buttons slot="start">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+    <ion-buttons slot="end" *ngIf="fireServ.currentUser">
+      <ion-button (click)="logout()">
+        <ion-icon name="ios-log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+<ion-content *ngIf="isLogin" class="conte" padding color="medium">
+  <div class="content">
+<ion-segment color="dark" [(ngModel)]="iName">
+    <ion-segment-button value="Ulezi">
+      Ulezi
+    </ion-segment-button>
+    <ion-segment-button value="Mchele">
+      Mchele
+    </ion-segment-button>
+  </ion-segment>
+
+      <div *ngIf="iName === 'Ulezi' || iName === 'Mchele'">
+<br>
+<br>
+  <ion-segment #sn color="dark" [(ngModel)]="iType"  >
+    <ion-segment-button value="Plain" (click)="updatePlainPrice()">
+      Plain
+    </ion-segment-button>
+    <ion-segment-button value="WakandaMix" (click)="updateMixPrice()">
+      Wakanda Mix
+    </ion-segment-button>
+  </ion-segment>
+      </div>
+  <br>
+  <br>
+
+  <ion-fab horizontal="end" (click)="increment()">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  </ion-fab>
+<ion-fab (click)="decrement()">
+    <ion-fab-button>
+    <ion-icon name="remove"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+    <div style="content: inherit">
+  <ion-item color="medium">
+  <ion-card-title><ion-input type="text" placeholder="Quantity" style="text-align: center" [(ngModel)]="currNumber" readonly>
+  </ion-input></ion-card-title>
+</ion-item>
+    </div>
+  <br>
+     <ion-select placeholder="PaymentMethod" class="select" [(ngModel)]="pMethod">
+    <ion-select-option value="Cash">Cash</ion-select-option>
+    <ion-select-option value="M-Pesa">M-Pesa</ion-select-option>
+    <ion-select-option value="FoodSasa">FoodSasa</ion-select-option>
+  </ion-select>
+<span><ion-card-subtitle>Price</ion-card-subtitle></span>
+  <ion-item color="medium">
+
+    <ion-card-title><ion-input  [(ngModel)]="iPrice" readonly style="text-align: center" readonly></ion-input></ion-card-title>
+
+</ion-item>
+<ion-button (click)="saveProduct()" expand="block" color="dark">Sale</ion-button>
+
+</div>
+  <div class="icon">
+    <ion-img src="../assets/img/Icon Yellow.png"></ion-img>
+  </div>
+
 </ion-content>
+
+<div *ngIf="!isLogin">
+  <p>Loading...</p>
+</div>
+<!--<ion-footer>-->
+  <!--<ion-toolbar color="dark">-->
+    <!--<ion-buttons style="float: right; margin-right: 37%">-->
+      <!--<ion-button>-->
+        <!--<ion-icon name="ios-person-add"></ion-icon>-->
+      <!--</ion-button>-->
+    <!--</ion-buttons>-->
+
+    <!--<ion-buttons>-->
+      <!--<ion-button>-->
+        <!--<ion-icon name="ios-home"></ion-icon>-->
+      <!--</ion-button>-->
+    <!--</ion-buttons>-->
+
+    <!--<ion-buttons slot="end">-->
+      <!--<ion-button (click)="sales()">-->
+        <!--<ion-icon name="ios-cash"></ion-icon>-->
+      <!--</ion-button>-->
+    <!--</ion-buttons>-->
+  <!--</ion-toolbar>-->
+<!--</ion-footer>-->
+
+

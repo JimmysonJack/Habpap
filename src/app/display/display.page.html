@@ -1,0 +1,103 @@
+<ion-header *ngIf="isLogin">
+  <ion-toolbar color="medium">
+    <ion-buttons slot="start">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+    <ion-title>sales</ion-title>
+  </ion-toolbar>
+  <ion-item-divider color="dark"></ion-item-divider>
+  <ion-toolbar color="medium">
+
+  <div style="text-align: center; position: relative">
+  <ion-grid >
+    <ion-row justify-content-center align-items-center style="height: 100%">
+      <ion-card>
+      <ion-col>
+       <ion-card> Total M-Pesa:</ion-card>
+       <ion-card-title>{{mpesa|number}}</ion-card-title>
+        Qnt:{{mpesa1}}
+      </ion-col>
+      </ion-card>
+      <ion-card>
+      <ion-col>
+        <ion-card>Total Cash:</ion-card>
+        <ion-card-title>{{cash|number}}</ion-card-title>
+        Qnt:{{cash1}}
+      </ion-col>
+      </ion-card>
+
+
+
+      <ion-card>
+      <ion-col>
+        <ion-card>Total FoodSasa:</ion-card>
+        <ion-card-title>{{foodSasa|number}}</ion-card-title>
+        Qnt:{{foodSasa1}}
+      </ion-col>
+      </ion-card>
+      <ion-card>
+      <ion-col>
+        <ion-card>Total Sales:</ion-card>
+        <ion-card-title>{{total|number}}</ion-card-title>
+        Qnt: {{total1}}
+      </ion-col>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="isLogin " color="medium">
+
+  <div style="position: initial">
+  <ion-item-sliding *ngFor="let item of product">
+    <ion-list *ngIf="item.userId === fireserv.currentUserId">
+      <div *ngIf="item.itemDate === dateNow">
+    <ion-item color="medium">
+      <ion-label slot="start">
+      {{item.itemName}}
+        <br>
+
+      <ion-card-subtitle>{{item.itemType}}</ion-card-subtitle>
+      </ion-label>
+
+      <p>{{item.itemQuantity}}</p>
+      <ion-note slot="end">
+       <ion-card-subtitle> {{item.paymentMethod}}</ion-card-subtitle><br>
+        {{item.itemPrice | number}}
+      </ion-note>
+    </ion-item>
+      </div>
+
+    </ion-list>
+  </ion-item-sliding>
+
+</div>
+
+<!--<ion-footer>-->
+  <!--<ion-toolbar text-center="" color="dark">-->
+    <!--<ion-buttons style="float: right; margin-right: 37%">-->
+      <!--<ion-button>-->
+        <!--<ion-icon name="ios-person-add"></ion-icon>-->
+      <!--</ion-button>-->
+    <!--</ion-buttons>-->
+
+    <!--<ion-buttons>-->
+      <!--<ion-button (click)="backHome()">-->
+        <!--<ion-icon name="ios-home"></ion-icon>-->
+      <!--</ion-button>-->
+    <!--</ion-buttons>-->
+
+    <!--<ion-buttons slot="end">-->
+      <!--<ion-button>-->
+        <!--<ion-icon name="ios-cash"></ion-icon>-->
+      <!--</ion-button>-->
+    <!--</ion-buttons>-->
+  <!--</ion-toolbar>-->
+<!--</ion-footer>-->
+</ion-content>
+
+<div *ngIf="!isLogin">
+  <p>Please wait...</p>
+</div>
