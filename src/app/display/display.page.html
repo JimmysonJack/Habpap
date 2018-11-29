@@ -47,7 +47,9 @@
 </ion-header>
 
 <ion-content *ngIf="isLogin " color="medium">
+  <ion-item color="dark">
     <ion-button (click)="onUpdate()">Close Sales</ion-button>
+  </ion-item>
   <div style="position: initial">
   <ion-item-sliding *ngFor="let item of product">
     <ion-list *ngIf="item.userId === fireserv.currentUserId">
