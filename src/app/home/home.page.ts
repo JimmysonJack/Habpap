@@ -22,6 +22,10 @@ export class HomePage implements OnInit {
         itemDate: this.dateNow,
         userId: '',
         paymentMethod: '',
+        itemTime: new Date().getTime(),
+        foodSasa: '',
+        flag: 'open',
+        type: 'normal',
 
     };
 
@@ -31,13 +35,17 @@ export class HomePage implements OnInit {
     iPrice: number;
     pMethod: string;
     userID: string;
+    showDate = new Date().getTime();
 
     cash = 0;
+    new: any;
 
     productId = null;
     loginUserName = null;
     loginUserRole = null;
     isLogin: boolean = false;
+    sasaFood = 'FoodSasa';
+    food: null;
 
     constructor(private rooter: ActivatedRoute, public fireServ: FireServService,
                 private loadn: LoadingController, private nav: NavController,
@@ -45,6 +53,9 @@ export class HomePage implements OnInit {
                 private firestore: AngularFirestore,
                 private fireAuth: AngularFireAuth,
                 private alertCtrl: AlertController, private toastCtrl: ToastController) {
+        setInterval(() => {
+            this.new = new Date().toLocaleTimeString();
+        }, 1);
 
     }
 
@@ -114,7 +125,7 @@ export class HomePage implements OnInit {
     }
 
     async saveProduct() {
-        if (this.iType != null || this.currNumber != null) {
+        if (this.iType != null && this.currNumber != null) {
             if (this.pMethod != null) {
                 this.postProduct.itemName = this.iName;
                 this.postProduct.paymentMethod = this.pMethod;
@@ -122,8 +133,13 @@ export class HomePage implements OnInit {
                 this.postProduct.itemQuantity = this.currNumber;
                 this.postProduct.itemType = this.iType;
                 this.postProduct.userId = this.fireServ.currentUserId;
+                if (this.food === true) {
+                    this.postProduct.foodSasa = this.sasaFood;
+                } else {
+                    this.postProduct.foodSasa = null;
+                }
                 const loading = await this.loadn.create({
-                    message: 'Salling...'
+                    message: 'Sale...'
                 });
                 await loading.present();
 
@@ -138,6 +154,7 @@ export class HomePage implements OnInit {
                         this.iType = null;
                         this.pMethod = null;
                         this.iName = null;
+                        this.food = null;
                     })
                 }
             } else {
@@ -192,7 +209,7 @@ export class HomePage implements OnInit {
     async showAlert() {
         const alet = await this.alertCtrl.create({
             message: this.iType,
-            subHeader: 'Solid',
+            subHeader: 'Sold',
         });
         await alet.present();
 
@@ -200,8 +217,9 @@ export class HomePage implements OnInit {
 
     async showToast() {
         const toss = await this.toastCtrl.create({
-            message: 'Select Product Type',
+            message: 'Select Product Type or Quantity',
             duration: 3000,
+            position: 'middle'
         });
         await toss.present();
     }
@@ -210,6 +228,16 @@ export class HomePage implements OnInit {
         const toss = await this.toastCtrl.create({
             message: 'Select Payment Method',
             duration: 3000,
+            position: "middle"
+        });
+        await toss.present();
+    }
+
+    async showToast3() {
+        const toss = await this.toastCtrl.create({
+            message: 'Select Payment Method',
+            duration: 3000,
+            position: "middle"
         });
         await toss.present();
     }

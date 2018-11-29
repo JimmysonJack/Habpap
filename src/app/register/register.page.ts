@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {HttpClient} from "@angular/common/http";
 
+
 @Component({
     selector: 'app-register',
     templateUrl: './register.page.html',
@@ -109,6 +110,8 @@ export class RegisterPage implements OnInit {
                 message: 'Enrolling..'
             });
             await loading.present();
+            
+            
             this.ht.get('https://us-central1-habpap-10004.cloudfunctions.net/user', {
                 params: {
                     username: this.uName,
@@ -119,26 +122,35 @@ export class RegisterPage implements OnInit {
                     firstname: this.fName,
                     lastname: this.lName
                 }
-            })
-                .subscribe(value => {
-                    // @ts-ignore
+            }).subscribe(value => {
+                // @ts-ignore
+                console.log(value);
+                loading.dismiss();
+                this.alertShow();
+                // this.db.collection('users').doc(value.email).set(this.postUser)
+                //     .then(value => {
+                //         loading.dismiss();
+                //         this.alertShow();
+                //     }, error => {
+                //         this.error = error;
+                //         if (this.error) {
+                //             loading.dismiss();
+                //         }
+                //     });
+            }, error1 => {
+                let s = error1.toString();
+                console.log(s);
+                if (error1.message.concat('Http failure response for (unknown url): 0 Unknown Error')){
                     loading.dismiss();
                     this.alertShow();
-                    // this.db.collection('users').doc(value.email).set(this.postUser)
-                    //     .then(value => {
-                    //         loading.dismiss();
-                    //         this.alertShow();
-                    //     }, error => {
-                    //         this.error = error;
-                    //         if (this.error) {
-                    //             loading.dismiss();
-                    //         }
-                    //     });
-                }, error1 => {
+                }else {
                     this.error = error1;
                     loading.dismiss();
                     console.log(error1)
-                });
+                }
+
+            });
+
             // this.fireserv.signUpWithEmail(this.email, this.password)
             //     .then(() => {
             //         this.authr.authState.subscribe(data => {
@@ -155,6 +167,13 @@ export class RegisterPage implements OnInit {
             //     // this.router.navigateByUrl('')
             // });
         }
+        this.fName = null;
+        this.lName = null;
+        this.uName = null;
+        this.rolen = null;
+        this.pNumb = null;
+        this.email = null;
+        this.password = null;
     }
 
     validateForm(email: string, password: string): boolean {

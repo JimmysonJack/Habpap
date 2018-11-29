@@ -15,6 +15,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 
 import {FireServService} from "./fire-serv.service";
 import {environment} from '../environments/environment.prod';
+import {ChartsModule} from "ng2-charts";
 
 @NgModule({
   declarations: [AppComponent,],
@@ -22,7 +23,8 @@ import {environment} from '../environments/environment.prod';
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
   AngularFireModule.initializeApp(environment.firekey),
   AngularFirestoreModule,
-  AngularFireAuthModule],
+  AngularFireAuthModule,
+  ChartsModule],
   providers: [
     StatusBar,
     SplashScreen,

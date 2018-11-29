@@ -34,11 +34,17 @@
     </ion-header>
 
     <ion-content *ngIf="isLogin" padding color="medium">
+        <ion-button (click)="showChart()">show chart</ion-button>
+        <p id="chart_div"></p>
+        <div id="visualization" style="width: 900px; height: 500px"></div>
 
         <ion-list *ngFor="let item of product">
             <ion-item color="medium">
                 <div slot="start" style="margin-right: 5%">
-                 {{item.itemDate}}
+                 {{item.itemTime | date: 'medium'}}
+                </div>
+                <div slot="end" style="margin-right: 25%">
+                    {{item.foodSasa}}
                 </div>
                 <div style="z-index: 3; position: absolute; margin-left: 40%; text-align: center">
               {{item.itemName}}<br>{{item.itemType}}
@@ -46,10 +52,12 @@
                 <div style="z-index: 2; position: absolute; margin-left: 90%; text-align: center">
                {{item.itemQuantity}}
                 </div>
-                <div style="z-index: 1; position: absolute; text-align: center" slot="end">
-                {{item.itemPrice|number}} <br> {{item.paymentMethod}}
+                <div style="z-index: 1; position: absolute; text-align: center">
+                {{item.itemPrice|number}}
                 </div>
-
+                <div style="margin-left: 20%">
+                {{item.paymentMethod}}
+                </div>
             </ion-item>
 
         </ion-list>

@@ -1,9 +1,10 @@
 <ion-header *ngIf="isLogin">
   <ion-toolbar color="medium">
+    <div style="float: right">
+      <p> Time {{new}}
+        {{showDate | date: 'fullDate'}}</p>
+    </div>
 
-    <ion-title>
-      Home
-    </ion-title>
     <ion-buttons slot="start">
     <ion-menu-button></ion-menu-button>
   </ion-buttons>
@@ -12,6 +13,9 @@
         <ion-icon name="ios-log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-title style="margin-top: 1%">
+      Home
+    </ion-title>
 
   </ion-toolbar>
 </ion-header>
@@ -59,18 +63,30 @@
 </ion-item>
     </div>
   <br>
-     <ion-select placeholder="PaymentMethod" class="select" [(ngModel)]="pMethod">
-    <ion-select-option value="Cash">Cash</ion-select-option>
-    <ion-select-option value="M-Pesa">M-Pesa</ion-select-option>
-    <ion-select-option value="FoodSasa">FoodSasa</ion-select-option>
-  </ion-select>
+
 <span><ion-card-subtitle>Price</ion-card-subtitle></span>
   <ion-item color="medium">
 
     <ion-card-title><ion-input  [(ngModel)]="iPrice" readonly style="text-align: center" readonly></ion-input></ion-card-title>
 
 </ion-item>
+    <ion-item-divider color="medium">
+      Choose Payment Method
+      <ion-select placeholder="PaymentMethod" class="select" [(ngModel)]="pMethod">
+      <ion-select-option value="Cash">Cash</ion-select-option>
+      <ion-select-option value="M-Pesa">M-Pesa</ion-select-option>
+
+    </ion-select>
+    </ion-item-divider>
+    <div *ngIf="pMethod != null">
+    <ion-item-divider color="medium" >If an Item ordered by FoodSasa</ion-item-divider>
+
+      <ion-label>FoodSasa</ion-label><br>
+      <ion-toggle [(ngModel)]="food"></ion-toggle>
+    </div>
+
 <ion-button (click)="saveProduct()" expand="block" color="dark">Sale</ion-button>
+
 
 </div>
   <div class="icon">

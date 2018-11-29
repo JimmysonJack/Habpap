@@ -26,8 +26,6 @@
       </ion-col>
       </ion-card>
 
-
-
       <ion-card>
       <ion-col>
         <ion-card>Total FoodSasa:</ion-card>
@@ -49,55 +47,48 @@
 </ion-header>
 
 <ion-content *ngIf="isLogin " color="medium">
-
+    <ion-button (click)="onUpdate()">Close Sales</ion-button>
   <div style="position: initial">
   <ion-item-sliding *ngFor="let item of product">
     <ion-list *ngIf="item.userId === fireserv.currentUserId">
       <div *ngIf="item.itemDate === dateNow">
+
     <ion-item color="medium">
+
       <ion-label slot="start">
+        <p>{{item.itemTime | date: 'medium'}}</p>
+      </ion-label>
+      <ion-label>
       {{item.itemName}}
         <br>
 
       <ion-card-subtitle>{{item.itemType}}</ion-card-subtitle>
       </ion-label>
-
+<ion-label slot="end">
       <p>{{item.itemQuantity}}</p>
-      <ion-note slot="end">
-       <ion-card-subtitle> {{item.paymentMethod}}</ion-card-subtitle><br>
+      </ion-label>
+      <ion-label slot="start">
+      {{item.foodSasa}}
+    </ion-label>
+      <ion-label slot="start">
+       <ion-card-subtitle > {{item.paymentMethod}}</ion-card-subtitle>
+      </ion-label>
+      <p slot="end">
         {{item.itemPrice | number}}
-      </ion-note>
+      </p>
     </ion-item>
+
       </div>
 
+
     </ion-list>
+
   </ion-item-sliding>
 
 </div>
 
-<!--<ion-footer>-->
-  <!--<ion-toolbar text-center="" color="dark">-->
-    <!--<ion-buttons style="float: right; margin-right: 37%">-->
-      <!--<ion-button>-->
-        <!--<ion-icon name="ios-person-add"></ion-icon>-->
-      <!--</ion-button>-->
-    <!--</ion-buttons>-->
 
-    <!--<ion-buttons>-->
-      <!--<ion-button (click)="backHome()">-->
-        <!--<ion-icon name="ios-home"></ion-icon>-->
-      <!--</ion-button>-->
-    <!--</ion-buttons>-->
-
-    <!--<ion-buttons slot="end">-->
-      <!--<ion-button>-->
-        <!--<ion-icon name="ios-cash"></ion-icon>-->
-      <!--</ion-button>-->
-    <!--</ion-buttons>-->
-  <!--</ion-toolbar>-->
-<!--</ion-footer>-->
 </ion-content>
-
 <div *ngIf="!isLogin">
   <p>Please wait...</p>
 </div>

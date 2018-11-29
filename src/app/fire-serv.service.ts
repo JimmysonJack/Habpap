@@ -9,11 +9,15 @@ import * as fireb from 'firebase';
 export interface ProductItem {
     itemName: string;
     itemDate: any;
+    itemTime: any;
     itemPrice: number;
     itemQuantity: number;
     itemType: string;
     paymentMethod: string;
     userId: string;
+    foodSasa: string;
+    flag: string;
+    type: string;
 }
 
 export interface AppUser {
@@ -48,8 +52,7 @@ export class FireServService {
     private proCollection: AngularFirestoreCollection<ProductItem>;
     private proCol: AngularFirestoreCollection<AppUser>;
     private products: Observable<ProductItem[]>;
-    private user: Observable<AppUser[]>;
-
+    private graph: Observable<AppUser[]>;
 
 
     constructor(private db: AngularFirestore, private router: Router, private authr: AngularFireAuth,
@@ -66,7 +69,10 @@ export class FireServService {
 
 
     getProducts() {
-        this.proCollection = this.db.collection<ProductItem>('products');
+        this.proCollection = this.db.collection<ProductItem>('products', ref => ref
+            .where('flag', '==', 'open')
+            // .where('userId', '==', this.currentUserId)
+            .orderBy('itemTime', "desc"));
         this.products = this.proCollection.snapshotChanges().pipe(
             map(actions => {
                 return actions.map(a => {
@@ -79,9 +85,13 @@ export class FireServService {
         return this.products;
         console.error()
     }
+
     getReport() {
         this.proCollection = this.db.collection<ProductItem>('products', ref => ref
-            .where('itemDate', '>=', this.search).where('itemDate', '<=', this.seach2));
+            .where('itemDate', '>=', this.search)
+            .where('itemDate', '<=', this.seach2)
+            .orderBy('itemDate', "desc")
+            .orderBy('itemTime', "desc"));
         this.products = this.proCollection.snapshotChanges().pipe(
             map(actions => {
                 return actions.map(a => {
@@ -93,6 +103,9 @@ export class FireServService {
         );
         return this.products;
         console.error()
+    }
+    getGraph() {
+
     }
 
     getProductItem(id) {
