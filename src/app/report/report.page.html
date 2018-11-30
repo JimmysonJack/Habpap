@@ -20,16 +20,61 @@
             </ion-item>
         </ion-toolbar>
         <ion-item color="medium">
-        <ion-grid style="text-align: center">
+            <ion-item-divider color="medium">
+        <ion-grid fixed style="text-align: center">
 
-            <ion-row justify-content-center align-items-center style="height: 100%">
-                <ion-card><div> Total:<ion-card-title> {{sum|number}}</ion-card-title> <br> Qnt: {{sum1}}</div></ion-card>
-                <ion-card><div>Cash: <ion-card-title> {{cash|number}}</ion-card-title> <br> Qnt: {{cash1}}</div></ion-card>
-                <ion-card><div> M-Pesa: <ion-card-title> {{mpesa|number}}</ion-card-title> <br> Qnt: {{mpesa1}}</div></ion-card>
-                <ion-card><div>  FoodSasa: <ion-card-title>{{foodSasa|number}}</ion-card-title> <br> Qnt: {{foodSasa1}}</div></ion-card>
+            <ion-row >
+                <ion-col>
+                <ion-card>
+                    <div style="background-color: #28e070">
+                        Total:
+                        <ion-card-title style="">
+                            {{sum|number}}
+                        </ion-card-title> <br>
+                        Qnt: {{sum1}}
+                    </div>
+                </ion-card>
+                </ion-col>
+
+                <ion-col>
+                <ion-card>
+                    <div style="background-color: #3171e0; color: white">
+                        Cash:
+                        <ion-card-title style="color: white">
+                            {{cash|number}}
+                        </ion-card-title> <br>
+                        Qnt: {{cash1}}
+                    </div>
+                </ion-card>
+                </ion-col>
+
+                <ion-col>
+                <ion-card>
+                    <div style="background-color: red; color: white">
+                        M-Pesa:
+                        <ion-card-title style="color: white">
+                            {{mpesa|number}}
+                        </ion-card-title> <br>
+                        Qnt: {{mpesa1}}
+                    </div>
+                </ion-card>
+                </ion-col>
+
+                <ion-col>
+                <ion-card>
+                    <div style="background-color: yellow">
+                        FoodSasa:
+                        <ion-card-title>
+                            {{foodSasa|number}}
+                        </ion-card-title> <br>
+                        Qnt: {{foodSasa1}}
+                    </div>
+                </ion-card>
+                </ion-col>
             </ion-row>
 
         </ion-grid>
+            </ion-item-divider>
     </ion-item>
     </ion-header>
 
@@ -42,24 +87,40 @@
 
         <ion-list *ngFor="let item of product">
             <ion-item color="medium">
-                <div slot="start" style="margin-right: 5%">
+                <ion-grid fixed style="text-align: center">
+                    <ion-row>
+                        <ion-col col-sm-2>
+                <div>
                  {{item.itemTime | date: 'medium'}}
                 </div>
-                <div slot="end" style="margin-right: 25%">
+                        </ion-col>
+                        <ion-col col-sm-2>
+                <div>
                     {{item.foodSasa}}
                 </div>
-                <div style="z-index: 3; position: absolute; margin-left: 40%; text-align: center">
+                        </ion-col>
+                        <ion-col col-sm-2>
+                <div>
               {{item.itemName}}<br>{{item.itemType}}
                 </div>
-                <div style="z-index: 2; position: absolute; margin-left: 90%; text-align: center">
+                        </ion-col>
+                        <ion-col col-sm-2>
+                <div>
                {{item.itemQuantity}}
                 </div>
-                <div style="z-index: 1; position: absolute; text-align: center">
+                        </ion-col>
+                        <ion-col col-sm-2>
+                <div>
                 {{item.itemPrice|number}}
                 </div>
-                <div style="margin-left: 20%">
+                        </ion-col>
+                        <ion-col col-sm-2>
+                <div>
                 {{item.paymentMethod}}
                 </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
             </ion-item>
 
         </ion-list>

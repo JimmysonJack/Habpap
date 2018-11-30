@@ -10,36 +10,41 @@
 
   <div style="text-align: center; position: relative">
   <ion-grid >
-    <ion-row justify-content-center align-items-center style="height: 100%">
-      <ion-card>
-      <ion-col>
-       <ion-card> Total M-Pesa:</ion-card>
-       <ion-card-title>{{mpesa|number}}</ion-card-title>
-        Qnt:{{mpesa1}}
-      </ion-col>
-      </ion-card>
-      <ion-card>
-      <ion-col>
-        <ion-card>Total Cash:</ion-card>
-        <ion-card-title>{{cash|number}}</ion-card-title>
-        Qnt:{{cash1}}
-      </ion-col>
-      </ion-card>
+    <ion-row>
 
-      <ion-card>
       <ion-col>
+        <ion-card style="background-color: red; color: white">
+       <ion-card style="color: white"> Total M-Pesa:</ion-card>
+       <ion-card-title style="color: white">{{mpesa|number}}</ion-card-title>
+        Qnt:{{mpesa1}}
+        </ion-card>
+      </ion-col>
+
+
+      <ion-col>
+        <ion-card style="background-color: #3171e0; color: white">
+        <ion-card style="color: white">Total Cash:</ion-card>
+        <ion-card-title style="color: white">{{cash|number}}</ion-card-title>
+        Qnt:{{cash1}}
+        </ion-card>
+      </ion-col>
+
+      <ion-col>
+      <ion-card style="background-color: yellow">
         <ion-card>Total FoodSasa:</ion-card>
         <ion-card-title>{{foodSasa|number}}</ion-card-title>
         Qnt:{{foodSasa1}}
-      </ion-col>
       </ion-card>
-      <ion-card>
+      </ion-col>
+
       <ion-col>
+      <ion-card style="background-color: #28e070">
         <ion-card>Total Sales:</ion-card>
         <ion-card-title>{{total|number}}</ion-card-title>
         Qnt: {{total1}}
-      </ion-col>
       </ion-card>
+      </ion-col>
+
     </ion-row>
   </ion-grid>
 </div>
@@ -56,28 +61,36 @@
       <div *ngIf="item.itemDate === dateNow">
 
     <ion-item color="medium">
+      <ion-grid fixed style="text-align: center">
+        <ion-row>
+          <ion-col>
+        {{item.itemTime | date: 'medium'}}
+          </ion-col>
 
-      <ion-label slot="start">
-        <p>{{item.itemTime | date: 'medium'}}</p>
-      </ion-label>
-      <ion-label>
+          <ion-col>
       {{item.itemName}}
         <br>
-
       <ion-card-subtitle>{{item.itemType}}</ion-card-subtitle>
-      </ion-label>
-<ion-label slot="end">
-      <p>{{item.itemQuantity}}</p>
-      </ion-label>
-      <ion-label slot="start">
+          </ion-col>
+
+          <ion-col>
+         {{item.itemQuantity}}
+          </ion-col>
+
+          <ion-col>
       {{item.foodSasa}}
-    </ion-label>
-      <ion-label slot="start">
+          </ion-col>
+
+          <ion-col>
        <ion-card-subtitle > {{item.paymentMethod}}</ion-card-subtitle>
-      </ion-label>
-      <p slot="end">
+          </ion-col>
+
+          <ion-col>
         {{item.itemPrice | number}}
-      </p>
+      </ion-col>
+
+        </ion-row>
+      </ion-grid>
     </ion-item>
 
       </div>
