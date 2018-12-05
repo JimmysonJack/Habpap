@@ -17,7 +17,7 @@ export interface ProductItem {
     userId: string;
     foodSasa: string;
     flag: string;
-    type: string;
+    uSerName: string;
 }
 
 export interface AppUser {
@@ -42,12 +42,13 @@ export interface AppUser {
 export class FireServService {
 
     dat = new Date();
-    dateNow = this.dat.getFullYear() + '-' + (this.dat.getMonth() + 1) + '-' + this.dat.getDate();
+    dateNow = this.dat.getFullYear() + '-' + ('0' + (this.dat.getMonth() + 1)).slice(-2) + '-' + ('0' + this.dat.getDate()).slice(-2);
     authState: any = null;
     loginUserName: string;
     loginUserRole: string;
     search = this.dateNow;
     seach2 = this.dateNow;
+    profName: string;
 
     private proCollection: AngularFirestoreCollection<ProductItem>;
     private proCol: AngularFirestoreCollection<AppUser>;
@@ -175,6 +176,7 @@ export class FireServService {
                 this.loginUserName = ui.get('userName');
                 this.loginUserRole = ui.get('role');
                 console.log(this.loginUserRole);
+                console.log(this.loginUserName);
             })
 
         }
@@ -186,5 +188,18 @@ export class FireServService {
             .then(() => console.log("email sent"))
             .catch((error) => console.log(error))
     }
+
+    profileName() {
+        this.authr.authState.subscribe(data => {
+            this.firestore.collection('users', ref => ref
+                .where('emailAddress', '==', data.email)).get().subscribe(val => {
+                val.forEach(value => {
+                    this.profName =  value.get('userName');
+
+                });
+            }); console.log('user name is', this.profName);
+        });
+
+        }
 }
 

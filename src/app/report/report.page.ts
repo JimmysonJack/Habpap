@@ -91,6 +91,8 @@ export class ReportPage implements OnInit {
     }
 
     async onReport() {
+        console.log('date one' +this.fireserv.search);
+        console.log('date two' +this.fireserv.seach2);
 
         await this.fireserv.getReport().subscribe(results => {
             this.product = results;
@@ -127,6 +129,7 @@ export class ReportPage implements OnInit {
                     if (this.product[i].foodSasa === 'FoodSasa') {
                         this.foodSasa1 = Number(this.foodSasa1) + Number(this.product[i].itemQuantity);
                     }
+
 
 
 
@@ -171,16 +174,13 @@ export class ReportPage implements OnInit {
             .where('itemType', '==', 'WakandaMix')).get().subscribe(data => {
             data.forEach(val => {
                 this.waka= val.get('itemQuantity');
-                for (let i=0;i < this.waka; i++) {
-                    this.mcheleWakanda = Number(this.mcheleWakanda) + Number(this.waka[i]) ;
 
-                }
             });
         });
                 // Some raw data (not necessarily accurate)
         var rowData1 = [['Products', 'Ulezi Plain', ],
             ['ULEZI', 1, ],
-            ['MCHELE', this.mcheleWakanda,],
+            ['MCHELE', 2,],
             ['2006/07', 2,],
             ['2007/08', 3,],
             ['2008/09', 1, ]];

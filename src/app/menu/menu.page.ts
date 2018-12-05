@@ -57,6 +57,7 @@ export class MenuPage implements OnInit {
                     this.loginUserName = ui.get('userName');
                     this.loginUserRole = ui.get('role');
                     console.log(this.loginUserRole);
+                    console.log(this.loginUserName);
                 })
             } else {
                 this.router.navigateByUrl('').catch(reason => {console.log(reason)});

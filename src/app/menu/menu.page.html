@@ -7,6 +7,9 @@
     </ion-header>
 
     <ion-content color="dark">
+      <ion-item-divider *ngIf="loginUserName">
+        Welcome: {{loginUserName}}
+      </ion-item-divider>
       <ion-list>
       <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
         <ion-item [href]="p.url" [class.active-item]="selectedPath===p.url" routerDirection="root" color="dark">

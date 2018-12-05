@@ -72,11 +72,24 @@
 </ion-item>
     <ion-item-divider color="medium">
       Choose Payment Method
-      <ion-select placeholder="PaymentMethod" class="select" [(ngModel)]="pMethod">
-      <ion-select-option value="Cash">Cash</ion-select-option>
-      <ion-select-option value="M-Pesa">M-Pesa</ion-select-option>
+      <!--<ion-select placeholder="PaymentMethod" class="select" [(ngModel)]="pMethod">-->
+      <!--<ion-select-option value="Cash">Cash</ion-select-option>-->
+      <!--<ion-select-option value="M-Pesa">M-Pesa</ion-select-option>-->
+        <div style="width: 30%; margin: auto">
+          <ion-radio-group [(ngModel)]="pMethod">
+            <ion-item color="medium">
+              <ion-label>M-Pesa</ion-label>
+              <ion-radio value="M-Pesa"></ion-radio>
+            </ion-item>
 
-    </ion-select>
+            <ion-item color="medium">
+              <ion-label>Cash</ion-label>
+              <ion-radio value="Cash"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </div>
+
+    <!--</ion-select>-->
     </ion-item-divider>
     <div *ngIf="pMethod != null">
     <ion-item-divider color="medium" >If an Item ordered by FoodSasa</ion-item-divider>

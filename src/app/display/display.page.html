@@ -8,7 +8,7 @@
   <ion-item-divider color="dark"></ion-item-divider>
   <ion-toolbar color="medium">
 
-  <div style="text-align: center; position: relative">
+  <div *ngIf="flagData !== null" style="text-align: center; position: relative">
   <ion-grid >
     <ion-row>
 
@@ -39,7 +39,7 @@
 
       <ion-col>
       <ion-card style="background-color: #28e070">
-        <ion-card>Total Sales:</ion-card>
+        <ion-card>Total Open Sales:</ion-card>
         <ion-card-title>{{total|number}}</ion-card-title>
         Qnt: {{total1}}
       </ion-card>
@@ -58,7 +58,7 @@
   <div style="position: initial">
   <ion-item-sliding *ngFor="let item of product">
     <ion-list *ngIf="item.userId === fireserv.currentUserId">
-      <div *ngIf="item.itemDate === dateNow">
+      <div *ngIf="item.itemDate === dateNow || item.flag == 'open'">
 
     <ion-item color="medium">
       <ion-grid fixed style="text-align: center">

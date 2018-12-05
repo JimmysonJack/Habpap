@@ -12,7 +12,9 @@ import {AngularFireAuth} from '@angular/fire/auth';
 })
 export class HomePage implements OnInit {
     dat = new Date();
-    dateNow = this.dat.getFullYear() + '-' + (this.dat.getMonth() + 1) + '-' + this.dat.getDate();
+    dateNow = this.dat.getFullYear() + '-' + ('0' + (this.dat.getMonth() + 1)).slice(-2) + '-' + ('0' + this.dat.getDate()).slice(-2);
+
+    loginUserName = null;
 
     postProduct: ProductItem = {
         itemQuantity: 0,
@@ -25,7 +27,7 @@ export class HomePage implements OnInit {
         itemTime: new Date().getTime(),
         foodSasa: '',
         flag: 'open',
-        type: 'normal',
+        uSerName: '',
 
     };
 
@@ -36,12 +38,10 @@ export class HomePage implements OnInit {
     pMethod: string;
     userID: string;
     showDate = new Date().getTime();
-
     cash = 0;
     new: any;
 
     productId = null;
-    loginUserName = null;
     loginUserRole = null;
     isLogin: boolean = false;
     sasaFood = 'FoodSasa';
@@ -60,6 +60,7 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit() {
+
         console.log(this.dateNow);
         this.fireAuth.authState.subscribe(
             value => {
@@ -73,10 +74,11 @@ export class HomePage implements OnInit {
                             this.loginUserName = ui.get('userName');
                             this.loginUserRole = ui.get('role');
                             console.log(this.loginUserRole);
+                            console.log(this.loginUserName);
                         }, error1 => {
                             console.log(error1);
-                        })
-                } else {
+                        });
+            } else {
                     this.router.navigateByUrl('').catch(reason => {
                         console.log(reason)
                     });
@@ -133,6 +135,7 @@ export class HomePage implements OnInit {
                 this.postProduct.itemQuantity = this.currNumber;
                 this.postProduct.itemType = this.iType;
                 this.postProduct.userId = this.fireServ.currentUserId;
+                this.postProduct.uSerName = this.loginUserName;
                 if (this.food === true) {
                     this.postProduct.foodSasa = this.sasaFood;
                 } else {
@@ -198,6 +201,7 @@ export class HomePage implements OnInit {
         });
         await loading.present();
         if (!this.fireServ.currentUserId) {
+
             loading.dismiss();
         }
     }

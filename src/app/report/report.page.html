@@ -12,10 +12,10 @@
             </ion-buttons>
 
                 <div style="border: 1px solid #2b1e1b; width: 40%; margin-right: 0%; z-index: 2; position: absolute; border-radius: 10px">
-                <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="fireserv.search" slot="start">Start Date</ion-datetime>
+                <ion-datetime displayFormat="DD MMM YYYY"  pickerFormat="D MMM YYYY"[(ngModel)]="fireserv.search" slot="start">Start Date</ion-datetime>
                 </div>
                 <div style="border: 1px solid #2b1e1b; width: 40%; margin-left: 60%; z-index: 1; position: absolute; border-radius: 10px">
-                <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="fireserv.seach2" slot="end">End Date</ion-datetime>
+                <ion-datetime displayFormat="DD MMM YYYY"  pickerFormat="D MMM YYYY"[(ngModel)]="fireserv.seach2" slot="end">End Date</ion-datetime>
                 </div>
             </ion-item>
         </ion-toolbar>
@@ -83,7 +83,7 @@
            <ion-button (click)="showChart()">show chart</ion-button>
        </ion-item>
         <p id="chart_div"></p>
-        <!--<p id="visualization"></p>-->
+        <p id="visualization"></p>
 
         <ion-list *ngFor="let item of product">
             <ion-item color="medium">
@@ -117,6 +117,11 @@
                         <ion-col col-sm-2>
                 <div>
                 {{item.paymentMethod}}
+                </div>
+                        </ion-col>
+                        <ion-col col-sm-2>
+                <div>
+                {{item.flag}} by {{item.uSerName}}
                 </div>
                         </ion-col>
                     </ion-row>

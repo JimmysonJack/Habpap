@@ -26,7 +26,7 @@ export class DisplayPage implements OnInit {
     buttonDisabled: boolean = false;
     isLogin: boolean = false;
     dat = new Date();
-    dateNow = this.dat.getFullYear() + '-' + (this.dat.getMonth() + 1) + '-' + this.dat.getDate();
+    dateNow = this.dat.getFullYear() + '-' + ('0' + (this.dat.getMonth() + 1)).slice(-2) + '-' + ('0' + (this.dat.getDate())).slice(-2);
 
     product: ProductItem[];
 
@@ -40,7 +40,8 @@ export class DisplayPage implements OnInit {
     foodSasa1 = 0;
     total = 0;
     total1 = 0;
-    foodSa = null;
+    flagData = null;
+
 
 
     constructor(public fireserv: FireServService,
@@ -64,34 +65,48 @@ export class DisplayPage implements OnInit {
         this.fireserv.getProducts().subscribe(res => {
             this.product = res;
             for (let i = 0; i < this.product.length; i++) {
-                if (this.product[i].userId === this.fireserv.currentUserId && this.product[i].itemDate === this.dateNow) {
-                    this.total = Number(this.total) + Number(this.product[i].itemPrice);
-                    this.total1 = Number(this.total1) + Number(this.product[i].itemQuantity);
+                if (this.product[i].userId === this.fireserv.currentUserId) {
+                    if (this.product[i].itemDate === this.dateNow || this.product[i].flag === 'open') {
 
-                    if (this.product[i].paymentMethod === 'Cash' && this.product[i].itemDate === this.dateNow) {
-                        this.cash = Number(this.cash) + Number(this.product[i].itemPrice);
-                    }
-                    if (this.product[i].paymentMethod === 'M-Pesa' && this.product[i].itemDate === this.dateNow) {
-                        this.mpesa = Number(this.mpesa) + Number(this.product[i].itemPrice);
-                    }
-                    if (this.product[i].foodSasa === 'FoodSasa' && this.product[i].itemDate === this.dateNow) {
-                        this.foodSasa = Number(this.foodSasa) + Number(this.product[i].itemPrice);
-                    }
-                    if (this.product[i].foodSasa === 'FoodSasa' && this.product[i].itemDate === this.dateNow) {
-                        this.foodSasa1 = Number(this.foodSasa1) + Number(this.product[i].itemQuantity);
-                    }
-                    if (this.product[i].paymentMethod === 'Cash' && this.product[i].itemDate === this.dateNow) {
-                        this.cash1 = Number(this.cash1) + Number(this.product[i].itemQuantity);
-                    }
-                    if (this.product[i].paymentMethod === 'M-Pesa' && this.product[i].itemDate === this.dateNow) {
-                        this.mpesa1 = Number(this.mpesa1) + Number(this.product[i].itemQuantity);
+                        this.total = Number(this.total) + Number(this.product[i].itemPrice);
+                        this.total1 = Number(this.total1) + Number(this.product[i].itemQuantity);
+
+
+                        if (this.product[i].paymentMethod === 'Cash'
+                            && this.product[i].itemDate === this.dateNow) {
+                            this.cash = Number(this.cash) + Number(this.product[i].itemPrice);
+                        }
+                        if (this.product[i].paymentMethod === 'M-Pesa' && this.product[i].itemDate === this.dateNow) {
+                            this.mpesa = Number(this.mpesa) + Number(this.product[i].itemPrice);
+                        }
+                        if (this.product[i].foodSasa === 'FoodSasa'
+                            && this.product[i].itemDate === this.dateNow) {
+                            this.foodSasa = Number(this.foodSasa) + Number(this.product[i].itemPrice);
+                        }
+                        if (this.product[i].foodSasa === 'FoodSasa'
+                            && this.product[i].itemDate === this.dateNow) {
+                            this.foodSasa1 = Number(this.foodSasa1) + Number(this.product[i].itemQuantity);
+                        }
+                        if (this.product[i].paymentMethod === 'Cash'
+                            && this.product[i].itemDate === this.dateNow) {
+                            this.cash1 = Number(this.cash1) + Number(this.product[i].itemQuantity);
+                        }
+                        if (this.product[i].paymentMethod === 'M-Pesa'
+                            && this.product[i].itemDate === this.dateNow) {
+                            this.mpesa1 = Number(this.mpesa1) + Number(this.product[i].itemQuantity);
+                        }
+
+                    this.sum = Number(this.sum) + Number(this.product[i].itemPrice);
+                    this.sum1 = Number(this.sum1) + Number(this.product[i].itemQuantity);
+
+                    if (this.product[i].flag === 'open')  {
+                        this.flagData = this.product[i].flag;
+                        console.log(this.flagData);
                     }
                 }
-                this.sum = Number(this.sum) + Number(this.product[i].itemPrice);
-                this.sum1 = Number(this.sum1) + Number(this.product[i].itemQuantity);
+
             }
-
-
+        }
             // this.firestore.collection('products')
             //     .ref.where('userId', '==', this.fireserv.currentUserId)
             //     .get().then(value => {
@@ -173,6 +188,17 @@ export class DisplayPage implements OnInit {
 
 
     onUpdate() {
+        this.sum = 0;
+        this.sum1 = 0;
+        this.cash = 0;
+        this.cash1 = 0;
+        this.mpesa = 0;
+        this.mpesa1 = 0;
+        this.foodSasa = 0;
+        this.foodSasa1 = 0;
+        this.total = 0;
+        this.total1 = 0;
+
         this.firestore.collection('products', ref =>
             ref.where('flag', '==', 'open')
                 .where('userId', '==', this.fireserv.currentUserId)
@@ -180,16 +206,19 @@ export class DisplayPage implements OnInit {
             value.forEach(result => {
                 this.firestore.collection('products')
                     .doc(result.id)
-                    .update({flag: 'close'})
-                    .then(value1 => {
-                        console.log(value1);
-                    })
-                    .catch(reason => {
-                        console.log(reason);
-                    })
+                    .update({flag: 'closed'});
+
             });
            // this.firestore.collection('products').doc().set({})
         });
 
+
+    }
+
+    profileName() {
+        this.fireAuth.authState.subscribe(data =>{
+            this.firestore.collection('users',ref => ref
+                .where(data.email, '==', 'emailAddress')).get()
+        })
     }
 }

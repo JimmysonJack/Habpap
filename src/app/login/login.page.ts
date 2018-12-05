@@ -13,8 +13,8 @@ export class LoginPage implements OnInit {
 
     isLogin: boolean = false;
     isNewUser = true;
-    email = '';
-    password = '';
+    public email = '';
+    public password = '';
     errorMessage = '';
     error: { name: any, message: any } = {name: '', message: ''};
     resetPassword = false;
@@ -133,6 +133,7 @@ export class LoginPage implements OnInit {
                 .then(() => {
                     this.fireserv.userNAME();
 
+
                     this.router.navigateByUrl('menu/(menucontent:home)')
                         .catch(reason => console.log(reason));
 
@@ -143,6 +144,9 @@ export class LoginPage implements OnInit {
                         this.router.navigate(['/'])
                     }
                 );
+            this.password = '';
+            this.email = '';
+
             if (this.errorMessage || this.error) {
                 loading.dismiss();
             }
@@ -194,5 +198,7 @@ export class LoginPage implements OnInit {
     logout() {
         this.fireserv.signOut();
     }
+
+
 
 }
